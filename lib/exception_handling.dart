@@ -1,15 +1,12 @@
-void main() {
-  int amount = 100;
-  Account emekasAccount = Account(130);
-
-  try {
-    makeDeposit(amount, emekasAccount);
-    print("Transaction successiful. Curr balance: ${emekasAccount.balance}");
-  } on DepositException catch (e) {
-    print(e.errMessage());
-  } finally {
-    print("transaction channels closed. Please come back again!");
+class DepositException implements Exception {
+  String errMessage() {
+    return "Error making deposits";
   }
+}
+
+class Account {
+  int balance;
+  Account(this.balance);
 }
 
 // primitive types like int, bool & double are passed by value
@@ -23,13 +20,16 @@ void makeDeposit(int amount, Account account) {
   }
 }
 
-class DepositException implements Exception {
-  String errMessage() {
-    return "Error making deposits";
-  }
-}
+void main() {
+  int amount = 100;
+  Account emekasAccount = Account(130);
 
-class Account {
-  int balance;
-  Account(this.balance);
+  try {
+    makeDeposit(amount, emekasAccount);
+    print("Transaction successiful. Curr balance: ${emekasAccount.balance}");
+  } on DepositException catch (e) {
+    print(e.errMessage());
+  } finally {
+    print("transaction channels closed. Please come back again!");
+  }
 }
